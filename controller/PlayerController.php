@@ -22,17 +22,18 @@ class PlayerController{
         $players = array("Player","Banker");
         $this->view->response();
            
-                                                                                // if player have roll
-        if($this->view->HasUserRoll())                                            // det ska vara en fiende
+                                                                                
+        if($this->view->HasUserRoll())                                           
         {
             foreach($players as $player)
             {
-              $this->Roll($player);                  // Player?//
+              $this->Roll($player);                  
             }
         }
     }
         public function Roll($player)
         { 
+            // result by throwin
             $this->Dicemodel->RollaDice();
             $rollvalues = $this->Dicemodel->GetDiceRolls(); 
          
@@ -44,10 +45,12 @@ class PlayerController{
              
              $this->DiceGame->WhoWin();
             $this->Player->PlayerRole($player,$rollvalues);
+            
+            // pic and value for each dice //
             $this->view->setRoll($rollvalues);
         
         
-        // identifiera spelare //
+        // identify and write out message //
         
         $roles = $this->Player->getRole($player,$rollvalues);
         $this->view->deliverMessage($roles,$rollvalues);

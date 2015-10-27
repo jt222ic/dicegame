@@ -29,37 +29,7 @@ class DiceView{
      $this->player = $p;
   }
   
- /* 
-  public function checkSession()
-  {
-    //$dicegame = new DiceGame();
-   
-   if(isset($_SESSION["Pair"]))
-   {
-     // $this->messager = $this->dicegame->GetSingleDieValue();
-      
-   }
-    if(isset($_SESSION["AutomaticWin"]))
-   {
-      //$this->messager = "$role got StraightFluash";
-      
-   }
-   if(isset($_SESSION["AutomaticLoose"]))
-   {
-      $this->messager = "$role got Bankruptcy";
-   }
-    if(isset($_SESSION["Triples"]))
-   {
-      $this->messager = "$role got Triples of ". $this->roll[0];
-      
-   }
-   if(isset($_SESSION["setPoint"]))
-   {
-    $this->messager = "$role got none re-roll";
-   }
-   return false;
-  }
-  */
+
  public function setRoll($roll)
  {  
      foreach($roll as $rolls)
@@ -101,35 +71,35 @@ class DiceView{
 
    foreach($roles as $role)
    {
-    $this->test[] = $role;
+    $this->PlayableRole[] = $role;
    }
    
 
     if($this->dicegame->gotflush() && !$this->dicegame->WhoWin())
     {
-    $this->Player = $this->test[0].": gets StraightFluash";
-    $this->Banker = $this->test[1].": Give up";
+    $this->Player = $this->PlayableRole[0].": gets StraightFluash";
+    $this->Banker = $this->PlayableRole[1].": Give up";
     }
     else if($this->dicegame->gotDeadflush())
     {
-    $this->Player = $this->test[0].": Gets Bankruptcy";
-     $this->Banker = $this->test[1].": Winner";
+    $this->Player = $this->PlayableRole[0].": Gets Bankruptcy";
+     $this->Banker = $this->PlayableRole[1].": Winner";
     }
     else if($this->dicegame->GetTriple())
     {
-     $this->Player = $this->test[0].": Gets Triple of ".$this->dicegame->GetSingleDieValue2();
-     $this->Banker = $this->test[1].": Give up";
+     $this->Player = $this->PlayableRole[0].": Gets Triple of ".$this->dicegame->GetSingleDieValue2();
+     $this->Banker = $this->PlayableRole[1].": Give up";
     }
       
    
     else{
-    $this->Player = $this->test[0].": gets ".$this->dicegame->GetSingleDieValue2();
-    $this->Banker = $this->test[1].": gets ".$this->dicegame->GetSingleDieValue();
+    $this->Player = $this->PlayableRole[0].": gets ".$this->dicegame->GetSingleDieValue2();
+    $this->Banker = $this->PlayableRole[1].": gets ".$this->dicegame->GetSingleDieValue();
     }
     
     if($this->dicegame->WhoWin()&& ! $this->dicegame->gotflush() &&! $this->dicegame->GetTriple() && !$this->dicegame->gotDeadflush())
     {
-     $this->messager = $this->test[0]."Wins $$$";
+     $this->messager = $this->PlayableRole[0]."Wins $$$";
     }
     else if($this->dicegame->GetSingleDieValue2 == $this->dicegame->GetSingleDieValue() && !$this->dicegame->getTriple() && !$this->dicegame->gotDeadflush())
     {
@@ -141,7 +111,7 @@ class DiceView{
     }
     else 
     {
-     $this->messager =$this->test[1]."Wins $$$";
+     $this->messager =$this->PlayableRole[1]."Wins $$$";
     }
 
   }
@@ -204,3 +174,37 @@ public function StatusMessage($e)
     }
     
 }
+
+/*dead code
+
+ /* 
+  public function checkSession()
+  {
+    //$dicegame = new DiceGame();
+   
+   if(isset($_SESSION["Pair"]))
+   {
+     // $this->messager = $this->dicegame->GetSingleDieValue();
+      
+   }
+    if(isset($_SESSION["AutomaticWin"]))
+   {
+      //$this->messager = "$role got StraightFluash";
+      
+   }
+   if(isset($_SESSION["AutomaticLoose"]))
+   {
+      $this->messager = "$role got Bankruptcy";
+   }
+    if(isset($_SESSION["Triples"]))
+   {
+      $this->messager = "$role got Triples of ". $this->roll[0];
+      
+   }
+   if(isset($_SESSION["setPoint"]))
+   {
+    $this->messager = "$role got none re-roll";
+   }
+   return false;
+  }
+  */

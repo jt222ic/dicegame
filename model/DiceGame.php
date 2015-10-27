@@ -16,10 +16,10 @@ private $TriplesDice;
 
 
   
-    public function checkTriple($rollvalues)
+    public function checkTriple($rollvalues) //3 of a kind //
     {
       foreach($rollvalues as $triple)
-    {                                                       // removed all string
+    {                                               
      $this->TriplesDice[] = $triple;
     }
     
@@ -37,12 +37,12 @@ private $TriplesDice;
       
       
     }
-    public function checkPair($rollvalues)                          // if you get pair you count the number of the single value such as   4-4-1 you get value points 1 or  3-3-6 you get value 6
+    public function checkPair($rollvalues)                        // if you get pair you count the number of the single value such as   4-4-1 you get value points 1 or  3-3-6 you get value 6
     {
     
     
     foreach($rollvalues as $pairs)
-    {                                                       // removed all string
+    {                                                       
      $PairDice[] = $pairs;
     }
     
@@ -107,7 +107,7 @@ private $TriplesDice;
      
      
     }
-    public function AutomaticWinLose($rollvalues)                            
+    public function AutomaticWinLose($rollvalues)    // check role who is throwing who                           
     {
     $rankvalue = 3;
     foreach($rollvalues as $pairs)
@@ -138,7 +138,8 @@ private $TriplesDice;
     }
     
     
-    public function gotflush(){
+    public function gotflush()                  //4-5-6//
+    {
     if( ($this->WinDice[0] == 4 && $this->WinDice[1] == 5 && $this->WinDice[2] == 6)
       ||
       ($this->WinDice[0] == 6 && $this->WinDice[1] == 5 &&  $this->WinDice[2] == 4)
@@ -153,10 +154,12 @@ private $TriplesDice;
             }
     }
     
-    public function gotDeadflush()                          
+    public function gotDeadflush()                          //1-2-3//
     {
-       if(($this->WinDice[0] == 1 && $this->WinDice[1] == 2 && $this->WinDice[2] == 3)||
-       ($this->WinDice[0] == 3 && $this->WinDice[1] == 2 && $this->WinDice[2] == 1)||
+       if(($this->WinDice[0] == 1 && $this->WinDice[1] == 2 && $this->WinDice[2] == 3)
+       ||
+       ($this->WinDice[0] == 3 && $this->WinDice[1] == 2 && $this->WinDice[2] == 1)
+       ||
        ($this->WinDice[0] == 1 && $this->WinDice[1] == 3 && $this->WinDice[2] == 2)
        || ($this->WinDice[0] == 2 && $this->WinDice[1] == 3 && $this->WinDice[2] == 1))
     {

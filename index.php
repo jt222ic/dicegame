@@ -24,7 +24,7 @@ if(isset($_GET["DiceGame"]))
 }
 else
 {
-    $dv = new StartView();            // når alltid vid else satsen 
+    $dv = new StartView();            
 }
 $lv = new LayoutView();
 $lv->render($dv);
