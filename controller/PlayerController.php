@@ -30,49 +30,39 @@ class PlayerController{
               $this->Roll($player);                  // Player?//
             }
         }
-        
-        
     }
-    
-    public function Roll($player)
-    { 
-        
-        
-        
-        $this->Dicemodel->RollaDice();
-        $rollvalues = $this->Dicemodel->GetDiceRolls(); 
+        public function Roll($player)
+        { 
+            $this->Dicemodel->RollaDice();
+            $rollvalues = $this->Dicemodel->GetDiceRolls(); 
          
-         
-        if (!$this->DiceGame->AutomaticWinLose($rollvalues))
-        {
-            
-            if(!$this->DiceGame->checkTriples($rollvalues))
+         if (!$this->DiceGame->AutomaticWinLose($rollvalues))
             {
-           $this->DiceGame->checkPair($rollvalues); 
-            }
+            $this->DiceGame->checkTriple($rollvalues);
+            $this->DiceGame->checkPair($rollvalues); 
+             }
+             
+             $this->DiceGame->WhoWin();
+            $this->Player->PlayerRole($player,$rollvalues);
+            $this->view->setRoll($rollvalues);
+        
+        
+        // identifiera spelare //
+        
+        $roles = $this->Player->getRole($player,$rollvalues);
+        $this->view->deliverMessage($roles,$rollvalues);
         }
         
-        $scores = $this->DiceGame->checkTriples($rollvalues);
+        }
+        
+        
         //var_dump($rollvalues);
          // $dc->Highestvalue($rollvalue);
        // $this->DiceGame->Triples($rollvalues);
-        
+        //  $scores = $this->DiceGame->checkTriples($rollvalues);
         //view 
         //@param  $role = string name  
-        $this->Player->PlayerRole($player,$rollvalues);
-       $this->view->setRoll($rollvalues);
-        $this->view->checkSession();
-         
-       
- 
-       // identifiera spelare
-        $roles = $this->Player->getRole();
-        
-         $this->view->deliverMessage($roles,$rollvalues);
-      
-        
-        
-       
+       // $this->view->checkSession();
        /*$TakeMessage =$dc->ReturnMessage();
        $this->view->GetMessage($TakeMessage);
        */
@@ -81,13 +71,8 @@ class PlayerController{
          $submit = new DomDocument;
          $submit->document.getElementById('Click');
          $submit->disabled = true; */
-        
+        //  if(!$this->DiceGame->checkTriples($rollvalues))
        // var_dump($rollvalue);// instantiera nya värdet in till spelregler DiceGame
         //var_dump($rollvalues);     finding the value in array
          
-    }
-  
-    
-    
-    
-}
+   

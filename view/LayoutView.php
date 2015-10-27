@@ -28,19 +28,17 @@ class LayoutView{
     private function HyperLinkbutton($dv)
     
     {
-        //if(!$dv)              /// ska inte göra så eftersom view blir alltid sant
-        //{
           if(isset($_GET["DiceGame"]))
           {
-              return '<a href=?>2nd page </a>';
+              return '<a href=?>Return Home</a>';
               
           }
           else 
           {
           
-              return '<a href=?DiceGame>1st page</a>';
+              return '<a href=?DiceGame>Play Game</a>';
           }
         
-        //}
+        
     }
 }

@@ -4,10 +4,6 @@
 class DiceView{
     
     private $dicegame;
-   
-    
-    private $messager;
-     private $messager2;
     private $value;
     private $roll;
     private $Player;
@@ -33,7 +29,7 @@ class DiceView{
      $this->player = $p;
   }
   
-  
+ /* 
   public function checkSession()
   {
     //$dicegame = new DiceGame();
@@ -63,6 +59,7 @@ class DiceView{
    }
    return false;
   }
+  */
  public function setRoll($roll)
  {  
      foreach($roll as $rolls)
@@ -105,40 +102,55 @@ class DiceView{
    foreach($roles as $role)
    {
     $this->test[] = $role;
+   }
+   
+
+    if($this->dicegame->gotflush() && !$this->dicegame->WhoWin())
+    {
+    $this->Player = $this->test[0].": gets StraightFluash";
+    $this->Banker = $this->test[1].": Give up";
+    }
+    else if($this->dicegame->gotDeadflush())
+    {
+    $this->Player = $this->test[0].": Gets Bankruptcy";
+     $this->Banker = $this->test[1].": Winner";
+    }
+    else if($this->dicegame->GetTriple())
+    {
+     $this->Player = $this->test[0].": Gets Triple of ".$this->dicegame->GetSingleDieValue2();
+     $this->Banker = $this->test[1].": Give up";
+    }
+      
+   
+    else{
+    $this->Player = $this->test[0].": gets ".$this->dicegame->GetSingleDieValue2();
+    $this->Banker = $this->test[1].": gets ".$this->dicegame->GetSingleDieValue();
+    }
+    
+    if($this->dicegame->WhoWin()&& ! $this->dicegame->gotflush() &&! $this->dicegame->GetTriple() && !$this->dicegame->gotDeadflush())
+    {
+     $this->messager = $this->test[0]."Wins $$$";
+    }
+    else if($this->dicegame->GetSingleDieValue2 == $this->dicegame->GetSingleDieValue() && !$this->dicegame->getTriple() && !$this->dicegame->gotDeadflush())
+    {
+       $this->messager = " It's Draw, Re-roll!Even if you can do this all the time";
+    }
+    else if($this->dicegame->gotflush()||$this->dicegame->getTriple()|| $this->dicegame->GetSingleDieValue2()>$this->dicegame->GetSingleDieValue())
+    {
+     $this->messager = "ULTIMATE VICTORY";
+    }
+    else 
+    {
+     $this->messager =$this->test[1]."Wins $$$";
+    }
+
   }
-
-
-
-  
-if($this->dicegame->gotflush())
-{
-  
-   $this->Player = $this->test[0]." får StraightFluash";
  
-}
-if($this->dicegame->gotDeadflush())
-{
-  $this->Player = $this->test[0]." får Bankruptcy";
-}
-
-   $this->Player = $this->test[0]." får ".$this->dicegame->GetSingleDieValue2();
-   $this->Banker = $this->test[1]." får ".$this->dicegame->GetSingleDieValue();
-
-
-
-
-
-
-
-  }
- 
-public function StatusMessage($e)                                               // tar emot exception  och Getmessage finns i Exception klassen
+public function StatusMessage($e)                                               
 	 {
 	 	 self::$BigText = $e;
 	 	 
 	 }
- 
- 
     public function response()
     
     {
@@ -149,14 +161,13 @@ public function StatusMessage($e)                                               
     public function generateDicePlatformHTML()
     {
         return '<form action="index.php?DiceGame" method="POST">
+        <img src="../model/pic/Ceelow.jpeg" >
       <input type="Submit" name="roll" value="RollaDice" id="Click" >
       '.self::$BigText.'
+      
        <p>Dice1</p>
        '.$this->roll[0].'
        '.$this->Pics[0].'
-      
-      
-      
       </form>
       
       <form>
@@ -177,11 +188,14 @@ public function StatusMessage($e)                                               
        <br>
        <br>
        '.$this->Player.'
-       '.$this->messager.'
+       
        <br>
        <br>
        '.$this->Banker.'
+       <br>
+       <br>
        '.$this->messager.'
+       
        
        
 ';

@@ -21,7 +21,6 @@ if(isset($_GET["DiceGame"]))
     $dv = new DiceView($d, $dg , $p);
     $pc = new PlayerController($dv,$d, $dg, $p);
     $pc->generatehtml();
-
 }
 else
 {

@@ -12,8 +12,7 @@ private $dice3;
         
         $this->dice =rand(1,6);              
         $this->dice2=rand(1,6);
-        $this->dice3=rand(1,6);
-                                                                                /* $roll = $this->dice;  $this->DiceView->setRoll(dice); */    
+        $this->dice3=rand(1,6);                                         /* $roll = $this->dice;  $this->DiceView->setRoll(dice); */    
     }
 
     public function GetDiceRolls()
@@ -25,14 +24,6 @@ private $dice3;
     }
 
 }
-
-
-
-
-
-
-
-
 
 
 
