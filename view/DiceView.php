@@ -161,7 +161,7 @@ public function StatusMessage($e)
     public function generateDicePlatformHTML()
     {
         return '<form action="index.php?DiceGame" method="POST">
-        <img src="../model/pic/Ceelow.jpeg" >
+        <img src="../model/pic/Ceelow.jpeg" ><br>
       <input type="Submit" name="roll" value="RollaDice" id="Click" >
       '.self::$BigText.'
       
