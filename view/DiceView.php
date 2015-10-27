@@ -7,10 +7,15 @@ class DiceView{
    
     
     private $messager;
+     private $messager2;
     private $value;
     private $roll;
+    private $Player;
+    private $Banker;
     
-    private static $BigText;
+   
+    
+    private static $BigText = "";
     
   public function HasUserRoll()    
   {
@@ -35,12 +40,12 @@ class DiceView{
    
    if(isset($_SESSION["Pair"]))
    {
-      $this->messager = "$role got " .  $this->dicegame->GetSingleDieValue();
+     // $this->messager = $this->dicegame->GetSingleDieValue();
       
    }
     if(isset($_SESSION["AutomaticWin"]))
    {
-      $this->messager = "$role got StraightFluash";
+      //$this->messager = "$role got StraightFluash";
       
    }
    if(isset($_SESSION["AutomaticLoose"]))
@@ -56,15 +61,8 @@ class DiceView{
    {
     $this->messager = "$role got none re-roll";
    }
-    
-   
-   
    return false;
-
   }
- 
-  
-  
  public function setRoll($roll)
  {  
      foreach($roll as $rolls)
@@ -102,10 +100,42 @@ class DiceView{
 
  }
  
+ public function deliverMessage($roles,$rollvalues){
 
+   foreach($roles as $role)
+   {
+    $this->test[] = $role;
+  }
+
+
+
+  
+if($this->dicegame->gotflush())
+{
+  
+   $this->Player = $this->test[0]." får StraightFluash";
+ 
+}
+if($this->dicegame->gotDeadflush())
+{
+  $this->Player = $this->test[0]." får Bankruptcy";
+}
+
+   $this->Player = $this->test[0]." får ".$this->dicegame->GetSingleDieValue2();
+   $this->Banker = $this->test[1]." får ".$this->dicegame->GetSingleDieValue();
+
+
+
+
+
+
+
+  }
+ 
 public function StatusMessage($e)                                               // tar emot exception  och Getmessage finns i Exception klassen
 	 {
 	 	 self::$BigText = $e;
+	 	 
 	 }
  
  
@@ -120,10 +150,11 @@ public function StatusMessage($e)                                               
     {
         return '<form action="index.php?DiceGame" method="POST">
       <input type="Submit" name="roll" value="RollaDice" id="Click" >
-      self::$BigText
+      '.self::$BigText.'
        <p>Dice1</p>
        '.$this->roll[0].'
        '.$this->Pics[0].'
+      
       
       
       </form>
@@ -145,7 +176,13 @@ public function StatusMessage($e)                                               
        <br>
        <br>
        <br>
+       '.$this->Player.'
        '.$this->messager.'
+       <br>
+       <br>
+       '.$this->Banker.'
+       '.$this->messager.'
+       
        
 ';
         

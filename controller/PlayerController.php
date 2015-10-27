@@ -19,10 +19,10 @@ class PlayerController{
     
     public function generatehtml()
     {
-        $players = array("Player","Bank");
+        $players = array("Player","Banker");
         $this->view->response();
            
-           try{                                                                       // if player have roll
+                                                                                // if player have roll
         if($this->view->HasUserRoll())                                            // det ska vara en fiende
         {
             foreach($players as $player)
@@ -31,38 +31,45 @@ class PlayerController{
             }
         }
         
-        }
-        catch(EXCEPTION $e)
-        {
-            $this->StatusMessage($e->GetMessage());
-        }
+        
     }
     
     public function Roll($player)
-    {
+    { 
+        
+        
+        
         $this->Dicemodel->RollaDice();
         $rollvalues = $this->Dicemodel->GetDiceRolls(); 
          
          
-        $this->DiceGame->AutomaticWin($rollvalues);
-        $this->DiceGame->AutomaticLoose($rollvalues);                           
-        $this->DiceGame->checkPair($rollvalues); 
-                                           // $dc->Highestvalue($rollvalue);
-        $this->DiceGame->Triples($rollvalues);
+        if (!$this->DiceGame->AutomaticWinLose($rollvalues))
+        {
+            
+            if(!$this->DiceGame->checkTriples($rollvalues))
+            {
+           $this->DiceGame->checkPair($rollvalues); 
+            }
+        }
+        
+        $scores = $this->DiceGame->checkTriples($rollvalues);
+        //var_dump($rollvalues);
+         // $dc->Highestvalue($rollvalue);
+       // $this->DiceGame->Triples($rollvalues);
         
         //view 
         //@param  $role = string name  
-        
-        $this->view->setRoll($rollvalues);
-        $this->view->checkSession($string);
-       
-       
-       
-     
-       
-       // identifiera spelare
-        
         $this->Player->PlayerRole($player,$rollvalues);
+       $this->view->setRoll($rollvalues);
+        $this->view->checkSession();
+         
+       
+ 
+       // identifiera spelare
+        $roles = $this->Player->getRole();
+        
+         $this->view->deliverMessage($roles,$rollvalues);
+      
         
         
        
