@@ -53,7 +53,7 @@ class PlayerController{
         // identify and write out message //
         
         $roles = $this->Player->getRole($player,$rollvalues);
-        $this->view->deliverMessage($roles,$rollvalues);
+        $this->view->deliverMessage($roles);
         }
         
         }

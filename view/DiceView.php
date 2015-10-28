@@ -67,7 +67,7 @@ class DiceView{
 
  }
  
- public function deliverMessage($roles,$rollvalues){
+ public function deliverMessage($roles){
 
    foreach($roles as $role)
    {
