@@ -2,9 +2,9 @@
 
 
 class LayoutView{
-    
-    
-    public function render($dv) {
+  
+  
+    public function render($v) {
     echo '<!DOCTYPE html> 
       <html>
         <head>
@@ -13,32 +13,12 @@ class LayoutView{
         </head>
         <body>
           <h1>DiceGame</h1>
-          ' . $this->HyperLinkbutton($dv) . '
           
           <div class="container">
-  
-        '.$dv->response().'
-             
+        '.$v->response().'
           </div>
          </body>
       </html>
     ';
-    }
-    
-    private function HyperLinkbutton($dv)
-    
-    {
-          if(isset($_GET["DiceGame"]))
-          {
-              return '<a href=?>Return Home</a>';
-              
-          }
-          else 
-          {
-          
-              return '<a href=?DiceGame>Play Game</a>';
-          }
-        
-        
     }
 }

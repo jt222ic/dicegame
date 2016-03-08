@@ -8,9 +8,6 @@ class DiceView{
     private $roll;
     private $Player;
     private $Banker;
-    
-   
-    
     private static $BigText = "";
     
   public function HasUserRoll()    
@@ -21,15 +18,11 @@ class DiceView{
       }
       return false;
   }
-  
-  
   public function __construct($d, $dg ,$p)
   {
      $this->dicegame = $dg;
      $this->player = $p;
   }
-  
-
  public function setRoll($roll)
  {  
      foreach($roll as $rolls)
@@ -41,92 +34,40 @@ class DiceView{
      for ($i = 0; $i < count($this->roll); $i++) {                                      // loopa igenom array id i roll 
          if($this->roll[$i] == 1)                                  // det finns bättre alternativ
          {
-           $this->Pics[$i] = '<img src="model/pic/dice1.png"alt = dice1';
+           $this->Pics[$i] = '<img src="pic/dice1.png"alt = dice1';
          }
          if($this->roll[$i] == 2)
          {
-           $this->Pics[$i] = '<img src="model/pic/dice2.png"alt = dice2';
+           $this->Pics[$i] = '<img src="pic/dice2.png"alt = dice2';
          }
          if($this->roll[$i] == 3)
          {
-           $this->Pics[$i] = '<img src="model/pic/dice3.png"alt = dice3';
+           $this->Pics[$i] = '<img src="pic/dice3.png"alt = dice3';
          }
          if($this->roll[$i] == 4)
          {
-           $this->Pics[$i] = '<img src="model/pic/dice4.png"alt = dice4';
+           $this->Pics[$i] = '<img src="pic/dice4.png"alt = dice4';
          }
          if($this->roll[$i] == 5)
          {
-           $this->Pics[$i] = '<img src="model/pic/dice5.png"alt = dice5';
+           $this->Pics[$i] = '<img src="pic/dice5.png"alt = dice5';
          }
           if($this->roll[$i] == 6)
          {
-           $this->Pics[$i] = '<img src="model/pic/dice6.png"alt = dice6';
+           $this->Pics[$i] = '<img src="pic/dice6.png"alt = dice6';
          }
      }
 
  }
- 
- public function deliverMessage($roles){
-
-   foreach($roles as $role)
-   {
-    $this->PlayableRole[] = $role;
-   }
-   
-
-    if($this->dicegame->gotflush() && !$this->dicegame->WhoWin())
-    {
-    $this->Player = $this->PlayableRole[0].": gets StraightFluash";
-    $this->Banker = $this->PlayableRole[1].": Give up";
-    }
-    else if($this->dicegame->gotDeadflush())
-    {
-    $this->Player = $this->PlayableRole[0].": Gets Bankruptcy";
-     $this->Banker = $this->PlayableRole[1].": Winner";
-    }
-    else if($this->dicegame->GetTriple())
-    {
-     $this->Player = $this->PlayableRole[0].": Gets Triple of ".$this->dicegame->GetSingleDieValue2();
-     $this->Banker = $this->PlayableRole[1].": Give up";
-    }
-      
-   
-    else{
-    $this->Player = $this->PlayableRole[0].": gets ".$this->dicegame->GetSingleDieValue2();
-    $this->Banker = $this->PlayableRole[1].": gets ".$this->dicegame->GetSingleDieValue();
-    }
-    
-    if($this->dicegame->WhoWin()&& ! $this->dicegame->gotflush() &&! $this->dicegame->GetTriple() && !$this->dicegame->gotDeadflush())
-    {
-     $this->messager = $this->PlayableRole[0]."Wins $$$";
-    }
-    else if($this->dicegame->GetSingleDieValue2 == $this->dicegame->GetSingleDieValue() && !$this->dicegame->getTriple() && !$this->dicegame->gotDeadflush())
-    {
-       $this->messager = " It's Draw, Re-roll!Even if you can do this all the time";
-    }
-    else if($this->dicegame->gotflush()||$this->dicegame->getTriple()|| $this->dicegame->GetSingleDieValue2()>$this->dicegame->GetSingleDieValue())
-    {
-     $this->messager = "ULTIMATE VICTORY";
-    }
-    else 
-    {
-     $this->messager =$this->PlayableRole[1]."Wins $$$";
-    }
-
-  }
- 
 public function StatusMessage($e)                                               
 	 {
 	 	 self::$BigText = $e;
 	 	 
 	 }
     public function response()
-    
     {
        $response = $this->generateDicePlatformHTML();
-       
-        return $response;
+       return $response;
     }
     public function generateDicePlatformHTML()
     {
@@ -165,9 +106,7 @@ public function StatusMessage($e)
        <br>
        <br>
        '.$this->messager.'
-       
-       
-       
+        
 ';
         
         
@@ -175,36 +114,5 @@ public function StatusMessage($e)
     
 }
 
-/*dead code
 
- /* 
-  public function checkSession()
-  {
-    //$dicegame = new DiceGame();
-   
-   if(isset($_SESSION["Pair"]))
-   {
-     // $this->messager = $this->dicegame->GetSingleDieValue();
-      
-   }
-    if(isset($_SESSION["AutomaticWin"]))
-   {
-      //$this->messager = "$role got StraightFluash";
-      
-   }
-   if(isset($_SESSION["AutomaticLoose"]))
-   {
-      $this->messager = "$role got Bankruptcy";
-   }
-    if(isset($_SESSION["Triples"]))
-   {
-      $this->messager = "$role got Triples of ". $this->roll[0];
-      
-   }
-   if(isset($_SESSION["setPoint"]))
-   {
-    $this->messager = "$role got none re-roll";
-   }
-   return false;
-  }
-  */
+  

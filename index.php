@@ -11,21 +11,12 @@ require_once("view/DiceView.php");
 require_once("view/StartView.php");
 require_once("model/DiceGame.php");
 require_once("model/Player.php");
+require_once("model/AuthModel.php");
+require_once("model/LoginModel.php");
+require_once("view/LoginView.php");
+require_once("controller/LoginController.php");
+require_once("controller/MasterController.php");
 
-
-if(isset($_GET["DiceGame"]))
-{   
-    $p = new Player();
-    $dg = new DiceGame();
-    $d = new Dice();
-    $dv = new DiceView($d, $dg , $p);
-    $pc = new PlayerController($dv,$d, $dg, $p);
-    $pc->generatehtml();
-}
-else
-{
-    $dv = new StartView();            
-}
-$lv = new LayoutView();
-$lv->render($dv);
+$master = new MasterController();
+$master->init();
 

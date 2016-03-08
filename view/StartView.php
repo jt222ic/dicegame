@@ -6,13 +6,15 @@ class StartView{
   
      public function response()
      {
-        $this->message = $this->generateRegisterFormHTML();
-        return $this->message;
+       
+        $response = $this->generateRegisterFormHTML();
+             // will switch response if clicking on the hyperlink
+        return $response;
     }
  public function generateRegisterFormHTML()
 {
     	return "
-    	<img src = '../model/pic/CeeLo.jpg'  >
+    	<img src = '../pic/CeeLo.jpg'  >
     	
     	<ul>
     	<li> The Banker rolls the dice. There are four outcomes </li>
@@ -31,9 +33,22 @@ class StartView{
     	<li> re-roll </li>
     	</ul>
     	
-    	
+    	<a href=?Dice>link to what?</a>
     	<p>version 0.0.3 Jan Bananis 1/2  need fix on A.I, Cashflow, login on much later iteration</p>
 		";
+}
+
+public function hyperlinktoGame()
+{
+    
+    if(isset($_GET["Dice"]))
+    {
+        return true;
+    }
+    else {
+            return false;
+    }
+    
 }
 
 }
