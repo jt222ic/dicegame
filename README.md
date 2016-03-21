@@ -8,4 +8,5 @@ Död kod kommenteras ut
 
 Update log
 behövs refactor, ändra kod, förbättring av struktur
+Vision dokument finns på Wiki
 
