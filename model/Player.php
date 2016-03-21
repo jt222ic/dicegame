@@ -8,8 +8,7 @@ class Player{
     
     private $score;
     private $role;
-
-
+    
             public function PlayerRole($player,$rollvalues)
             {
         $this->role = array();

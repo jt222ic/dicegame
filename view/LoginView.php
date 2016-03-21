@@ -40,8 +40,6 @@ public function response()
 					<input type="submit" name="' . self::$login . '" value="login" />
 					'. self::$message .'
 			</fieldset>
-			
-		
 			</form>
                   
               </div>

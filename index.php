@@ -11,7 +11,8 @@ require_once("view/DiceView.php");
 require_once("view/StartView.php");
 require_once("model/DiceGame.php");
 require_once("model/Player.php");
-require_once("model/AuthModel.php");
+require_once("model/Cash.php");
+
 require_once("model/LoginModel.php");
 require_once("view/LoginView.php");
 require_once("controller/LoginController.php");

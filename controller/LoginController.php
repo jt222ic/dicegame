@@ -2,21 +2,16 @@
 
 class LogController
 {
-
-    
     public function __construct(LoginView $lv, LoginModel $lm, LayoutView $l)
     {
     $this->LoginView = $lv;
     $this->LoginModel = $lm;
     $this->LayoutView = $l;
-    
     }
-    
     public function initLogin()
     {
         $this->adminWantsToLogin();
     }
-    
     public function renderLoginLayout()
     {
       $this->LayoutView->render($this->LoginView);

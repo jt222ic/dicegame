@@ -7,39 +7,48 @@ class PlayerController{
     private $view;
     private $Dicemodel;
     private $DiceGame;
+    private $Cash;
     
-    
-    public function __construct($dv,$d, $dg ,$p)
+    public function __construct($dv,$d, $dg ,$p, $c)
     {
         $this->view = $dv;
-        $this->Dicemodel = $d;
+        $this->Dice = $d;
         $this->DiceGame = $dg;
         $this->Player =$p;
+        $this->Cash = $c;
     }
-    
-    public function generatehtml()
+    public function CheckRoll()
     {
-        $players = array("Player","Banker");
-        $this->view->response();                                        
+        $players = array("Player");    // can change later 
+        $this->view->response();  
         
-        if($this->view->HasUserRoll())                                           
+            $valuebet =$this->view->GetValue();
+            $this->Cash->bet($valuebet);
+            $economy = $this->Cash->GetBankaccount();
+            $MoneyBank =  $this->Cash->SessionForBank();
+         
+          try{  
+        if($this->view->HasUserRoll() && $this->view->HasUserCheck())                                           
         {
-            foreach($players as $player)
-            {
-              $this->Roll($player);                  
-            }
+              $this->Roll($player,$MoneyBank);    
         }
+          }
+          catch(Exeption $e)
+          {
+              echo "you forgot to mark in the money";
+          }
     }
-        public function Roll($player)
+        public function Roll($player,$MoneyBank)
         { 
-            $this->Dicemodel->RollaDice();
-            $rollvalues = $this->Dicemodel->GetDiceRolls(); 
+            $this->Dice->RollaDice();
+            $rollvalues = $this->Dice->GetDiceRolls(); 
+            $this->DiceGame->checkPair($rollvalues);
+           $this->Cash->PlayerCondition();  // skall bli true
+            
+            $this->view->showBank($MoneyBank);
             $this->Player->PlayerRole($player,$rollvalues);
             $this->view->setRoll($rollvalues);
             $roles = $this->Player->getRole($player,$rollvalues);
-            
         }
         
         }
-        
- 

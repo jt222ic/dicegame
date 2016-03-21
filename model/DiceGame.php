@@ -13,9 +13,10 @@ private $currentplayer = 0;
 private $WinDice;
 private $Highest;
 private $TriplesDice;
+public $Pairss = false;
 
-  
-    public function checkTriple($rollvalues)
+
+    public function checkTriple($rollvalues) //3 of a kind //
     {
       foreach($rollvalues as $triple)
     {                                               
@@ -26,18 +27,15 @@ private $TriplesDice;
     {
    
     $this->TripleDievalue = max(array($this->TriplesDice));
-   
     }
     }
-    
     public function GetTriple()
     {
       return $this->TripleDievalue;
     }
-    public function checkPair($rollvalues)                       
+    
+    public function checkPair($rollvalues)                        // if you get pair you count the number of the single value such as   4-4-1 you get value points 1 or  3-3-6 you get value 6
     {
-    
-    
     foreach($rollvalues as $pairs)
     {                                                       
      $PairDice[] = $pairs;
@@ -71,22 +69,39 @@ private $TriplesDice;
      else
         $this->dievalue2 = $PairDice[0];
     } 
-    }
     
+   $_SESSION[$this->Pairss] = true;
+    
+    }
+public function PairCondition()
+{ 
+    
+    if(isset($_SESSION[$this->Pairss]))
+    {
+   
+    return true;
+    }
+   
+}
     public function GetSingleDieValue()
-    {  
+    {   
      return $this->dievalue;
     
     }
     public function GetSingleDieValue2()
     {
-     return $this->dievalue2;                
+     
+     return $this->dievalue2;
+                       
     }
     
     public function WhoWin()
     {
+     
+       
      if($this->dievalue2>$this->dievalue)
      {
+     
      return true;
      }
      else{
@@ -95,7 +110,7 @@ private $TriplesDice;
      
      
     }
-    public function AutomaticWinLose($rollvalues)                          
+    public function AutomaticWinLose($rollvalues)    // check role who is throwing who                           
     {
     $rankvalue = 3;
     foreach($rollvalues as $pairs)
@@ -109,6 +124,7 @@ private $TriplesDice;
     $result = $this->gotDeadflush($rollvalues);
    $result = $this->checkTriple($rollvalues);
     }
+    
     else if($this->currentplayer == 1)
     {
     $result =$this->gotflush();
@@ -121,10 +137,11 @@ private $TriplesDice;
         $this->currentplayer = 1;
      else
         $this->currentplayer = 0;
-        
+     return $result;   
+     
     }
     
-    public function gotflush()                 
+    public function gotflush()                  //4-5-6//
     {
     if( ($this->WinDice[0] == 4 && $this->WinDice[1] == 5 && $this->WinDice[2] == 6)
       ||
@@ -157,5 +174,5 @@ private $TriplesDice;
     return false;
     }
     }
-
+   
 }
