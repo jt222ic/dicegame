@@ -15,8 +15,6 @@ class Cash
     
    public function Bet($value)
    {
-       
-       
        if(!isset($_SESSION["Money"]))
        {
            $_SESSION["Money"] = 0;
@@ -55,24 +53,15 @@ class Cash
            }   
        }
        setcookie($cookie_name,$_SESSION["Money"], time() + (86400 * 30), "/");
-       echo $cookie_name;
    }
    
    public function PlayerCondition()
    {
-       if($this->DiceGame->PairCondition())
-       {      
-        
-        return true;
+       if($this->DiceGame->Gamecondition())
+       {     
+            return false;
        }
-       else
-       {
-           return false;
-       }
-   }
-   public function GetBankaccount()
-   {
-       return $this->bankaccount;
+       return true;
    }
    public function SessionForBank()
    {

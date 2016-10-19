@@ -37,10 +37,10 @@ public function hyperlinktoGame()
 {
     if(!isset($_GET[self::$GetInGame]))
     {
- $response= "<a href='?".self::$GetInGame."'>link to what?</a>";
+ $response= "<a href='?".self::$GetInGame."'>Link to the Game?</a>";
     }
     else{ 
-$response = "<a href='?'>Back to what?</a>"; 
+$response = "<a href='?'>Back to Main Menu?</a>"; 
     }
   return $response;
 }

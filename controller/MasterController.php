@@ -11,28 +11,30 @@ $lm = new LoginModel();
 $lc = new LogController($lv,$lm,$l);              // short text variable too difficult to read? post me and i rename them to the original name
                                                    // Lazy to write out a work in a hurry in Master Class
 
-$p = new Player();
+
 $dg = new DiceGame();
 $d = new Dice();
-$dv = new DiceView($d, $dg,$p);
 $c = new Cash($dg);
-$pc = new PlayerController($dv,$d,$dg,$p, $c);
+$dv = new DiceView($d, $dg, $c);
 
-if($lc->isLoggedin())
-{
-$sv = new StartView();    
-$l->render($sv);
+$pc = new PlayerController($dv,$d,$dg, $c);
 
-if($sv->GetGame())
+    if($lc->isLoggedin())
     {
-   $pc->CheckRoll();
-   $l->render($dv);
+    $sv = new StartView();    
+    $l->render($sv);
+
+        if($sv->GetGame())
+            {
+                $pc->CheckRoll();
+                 $l->render($dv);
+             }
+             
     }
-}
-else
-{
-$lc->initLogin();
-$lc->renderLoginLayout();
-}
+    else
+    {
+    $lc->initLogin();
+    $lc->renderLoginLayout();
+    }
 }
 }

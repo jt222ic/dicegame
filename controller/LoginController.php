@@ -19,16 +19,16 @@ class LogController
     public function adminWantsToLogin()
     {
      if($this->LoginView->loginPost())
-    {
-        try
         {
+            try
+                {
         $this->LoginModel->checkLogin($this->LoginView->getUsername(),$this->LoginView->getPassword());
-        }
-        catch(Exception $e)
-        {
+                }
+             catch(Exception $e)
+                {
             $this->LoginView->setMessage($e);
+                }
         }
-    }
     }
     
     public function isLoggedin()

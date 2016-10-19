@@ -3,12 +3,14 @@
 
 class DiceView{
     
-    private $dicegame;
+    private $DiceGame;
     private $value;
     private $roll;
     private $Player;
     private $Banker;
+    private $cash;
     private static $BigText = "";
+    private static $BankAccount;
     
   public function HasUserRoll()    
   {
@@ -34,17 +36,25 @@ class DiceView{
    {
     return $_POST["formDoor1"];
    }
-  public function __construct($d, $dg ,$p)
-  {
-     $this->dicegame = $dg;
-     $this->player = $p;
+   
+   //@@param dice,
+   //@@param dicegame, 
+   //@@param player,
+   //@@ param cash
+  
+  public function __construct($d,$dg, $c)
+  {  $this->dice = $d;
+     $this->DiceGame = $dg;
+     $this->cash = $c;
+     
   }
- public function setRoll($roll)     
+ public function setRoll()     
  {  
-     foreach($roll as $rolls)
-     {
+      $roll = $this->dice->GetDiceRolls();
+      foreach($roll as $rolls)
+      {
         $this->roll[]= $rolls;
-     }
+      }
        // to write out and specify array in each and place them with img src //
      for ($i = 0; $i < count($this->roll); $i++) {                                       
          if($this->roll[$i] == 1)                                  
@@ -80,23 +90,25 @@ public function StatusMessage($e)
     public function response()
     {
        $response = $this->generateDicePlatformHTML();
-       
-       
-       
        return $response;
     }
-    public function showBank($MoneyBank)
+    public function showBank()
     {
-      echo "Bank Account:".$MoneyBank;
-     
+     self::$BankAccount = $this->cash->SessionForBank();
+    }
+    public function viewPlayercondition()
+    {
+    
+    $this->cash->PlayerCondition();
     }
 
-    
     public function generateDicePlatformHTML()
     {
     return '
      
     <form action="index.php?DiceGame" method="POST">
+    <p>Bank Account :'.self::$BankAccount.'<p><br>
+    
     
     <input type="radio" name="formDoor1" value="50$" />50$$ 
     <input type="radio" name="formDoor1" value="100$" />100$$
@@ -126,11 +138,11 @@ public function StatusMessage($e)
        <br>
        <br>
        <br>
-       '.$this->Player.'
+     
        
        <br>
        <br>
-       '.$this->Banker.'
+       
        <br>
        <br>
        '.$this->messager.'

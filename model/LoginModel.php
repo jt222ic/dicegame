@@ -5,7 +5,6 @@
 class LoginModel
 {
     
-    
     public function checkLogin($username,$password)
     {
         $correctUsername ="Jan";
@@ -34,8 +33,6 @@ class LoginModel
     {
         return false;
     }
-         
-          
     }
     
 }
